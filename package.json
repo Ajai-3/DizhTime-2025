@@ -1,0 +1,23 @@
+{
+  "name": "dizhtime-monorepo",
+  "version": "1.0.0",
+  "description": "DizhTime microservices monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "frontend"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "build:common": "npm run build --workspace=@dizhtime/common",
+    "dev:common": "npm run dev --workspace=@dizhtime/common",
+    "install:all": "npm install --workspaces",
+    "clean": "npm run clean --workspaces"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "author": "DizhTime Team <dizhtime@gmail.com>",
+  "license": "MIT"
+}
