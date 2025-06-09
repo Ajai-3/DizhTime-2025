@@ -1,0 +1,1 @@
+// Register Auth Customer Component

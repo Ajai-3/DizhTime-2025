@@ -1,0 +1,1 @@
+// Register Auth Restaurant Component
