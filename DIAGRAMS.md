@@ -279,59 +279,52 @@ graph TB
 ## Admin Dashboard
 
 ```mermaid
-graph LR
+graph TB
+    %% Admin Authentication
     A[🔑 Admin Login] --> B[📊 Admin Dashboard]
 
-    B --> C[👥 User Management<br/>👀 View • 🚫 Block • 📋 Reports]
-    B --> D[🏪 Restaurant Management<br/>✅ Approve • 📊 Monitor • ⚠️ Support]
+    %% Main Management Modules
+    B --> C[👥 User Management]
+    B --> D[🏪 Restaurant Management]
+    B --> E[📦 Order Management]
+    B --> F[🚚 Delivery Management]
+    B --> G[📈 Analytics & Reports]
 
-    B --> E[📦 Order Management<br/>📋 View • ⚖️ Disputes • 💰 Refunds]
-    B --> F[🚚 Delivery Management<br/>📍 Track • 🔄 Assign • ⏱️ Performance]
+    %% User Management Features
+    C --> C1[👀 View All Users]
+    C --> C2[🚫 Block/Unblock Users]
+    C --> C3[📋 User Activity Reports]
 
-    B --> G[📈 Analytics Hub<br/>💰 Revenue • 📊 Metrics • 🎯 Intelligence]
+    %% Restaurant Management Features
+    D --> D1[✅ Approve New Restaurants]
+    D --> D2[📊 Monitor Performance]
+    D --> D3[⚠️ Handle Support Issues]
 
-    %% User Management Actions
-    C --> C1{👥 User Actions}
-    C1 --> C2[👀 View Users]
-    C1 --> C3[🚫 Block/Unblock]
-    C1 --> C4[📋 Activity Reports]
+    %% Order Management Features
+    E --> E1[📋 View All Orders]
+    E --> E2[⚖️ Resolve Disputes]
+    E --> E3[💰 Process Refunds]
 
-    %% Restaurant Management Actions
-    D --> D1{🏪 Restaurant Actions}
-    D1 --> D2[✅ Approve New]
-    D1 --> D3[📊 Performance]
-    D1 --> D4[⚠️ Handle Issues]
+    %% Delivery Management Features
+    F --> F1[📍 Live Order Tracking]
+    F --> F2[🔄 Assign Delivery Boys]
+    F --> F3[⏱️ Performance Reviews]
 
-    %% Order Management Actions
-    E --> E1{📦 Order Actions}
-    E1 --> E2[📋 View Orders]
-    E1 --> E3[⚖️ Resolve Disputes]
-    E1 --> E4[💰 Process Refunds]
+    %% Analytics Features
+    G --> G1[💰 Revenue Dashboard]
+    G --> G2[📊 System Metrics]
+    G --> G3[🎯 Business Intelligence]
 
-    %% Delivery Management Actions
-    F --> F1{� Delivery Actions}
-    F1 --> F2[� Live Tracking]
-    F1 --> F3[🔄 Order Assignment]
-    F1 --> F4[⏱️ Performance Review]
-
-    %% Analytics Actions
-    G --> G1{� Analytics Views}
-    G1 --> G2[� Revenue Dashboard]
-    G1 --> G3[📊 System Metrics]
-    G1 --> G4[🎯 Business Intelligence]
-
-    %% Styling
+    %% Styling for better visibility
     classDef login fill:#e8f5e8,stroke:#2e7d32,stroke-width:4px,color:#000
     classDef dashboard fill:#e3f2fd,stroke:#1976d2,stroke-width:4px,color:#000
-    classDef mainModules fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,color:#000
-    classDef actionGroups fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#000
-    classDef actions fill:#f1f8e9,stroke:#33691e,stroke-width:2px,color:#000
+    classDef modules fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,color:#000
+    classDef features fill:#fff8e1,stroke:#f57c00,stroke-width:2px,color:#000
 
     class A login
     class B dashboard
-    class C,D,E,F,G mainModules
-    class C1,D1,E1,F1,G1 actionGroups
-    class C2,C3,C4,D2,D3,D4,E2,E3,E4,F2,F3,F4,G2,G3,G4 actions
+    class C,D,E,F,G modules
+    class C1,C2,C3,D1,D2,D3,E1,E2,E3,F1,F2,F3,G1,G2,G3 features
 ```
 
 ## Chatbot Flow

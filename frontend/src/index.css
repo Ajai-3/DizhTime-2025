@@ -1,10 +1,13 @@
-@import "tailwindcss";
+@import "tailwindcss/preflight";
+@import "tailwindcss/utilities";
 
-@theme {
-  --color-mainColor: #95bc1d;
+:root {
+  --color-primary: #f97316;
+  --color-secondary: #ea580c;
 }
 
 body {
-  background-color: #000000;
-  color: #ffffff;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
 }

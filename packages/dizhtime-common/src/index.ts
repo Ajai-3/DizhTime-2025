@@ -9,10 +9,11 @@
 // HTTP utilities
 export {
   HttpStatusCode,
+  StatusCodes,
   StatusMessages,
   ApiResponse,
-  ResponseHandler
-} from './http/httpStatus';
+  ResponseHandler,
+} from "./http/httpStatus";
 
 // Re-export types for convenience
-export type { ApiResponse as DizhTimeApiResponse } from './http/httpStatus';
+export type { ApiResponse as DizhTimeApiResponse } from "./http/httpStatus";

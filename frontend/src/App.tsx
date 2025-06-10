@@ -11,12 +11,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
 // Layout Components
-import Layout from "./components/layout/Layout";
 
 // Pages
 import Home from "./pages/Home";
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
+
+
+// Test Component
+import TestComponent from "./components/TestComponent";
 
 // Styles
 import "react-toastify/dist/ReactToastify.css";
@@ -27,14 +28,18 @@ const App: React.FC = () => {
     <Router>
       <div className="App min-h-screen bg-gray-50">
         <Routes>
+          {/* Test Route */}
+          <Route path="/test" element={<TestComponent />} />
+
           {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+          {/* <Route path="/register" element={<Register />} /> */}
 
           {/* Protected Routes with Layout */}
-          <Route path="/" element={<Layout />}>
+          {/* <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-          </Route>
+          </Route> */}
+          <Route path="/" element={<Home />} />
         </Routes>
 
         {/* Global Toast Notifications */}
