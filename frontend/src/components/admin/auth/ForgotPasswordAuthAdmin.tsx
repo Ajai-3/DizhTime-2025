@@ -1,1 +1,0 @@
-// ForgotPassword Auth Admin Component

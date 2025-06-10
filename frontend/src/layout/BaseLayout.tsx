@@ -1,1 +1,0 @@
-// Global Base Layout Component

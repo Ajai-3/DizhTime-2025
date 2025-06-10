@@ -1,1 +1,0 @@
-// Auth Layout Customer Component

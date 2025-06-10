@@ -1,1 +1,0 @@
-// Global Auth Layout Component

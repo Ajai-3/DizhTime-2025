@@ -7,17 +7,16 @@
 // ===============================================================================
 
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
-// Layout Components
-
-// Pages
-import Home from "./pages/Home";
-
+// Theme
+import { ThemeProvider } from "./contexts/ThemeContext";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 
 // Test Component
 import TestComponent from "./components/TestComponent";
+import LoaderDemo from "./pages/LoaderDemo";
 
 // Styles
 import "react-toastify/dist/ReactToastify.css";
@@ -25,21 +24,24 @@ import "./index.css";
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <div className="App min-h-screen bg-gray-50">
+    <ThemeProvider>
+      <div className="App min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+        {/* Theme Switcher - Always visible */}
+        <ThemeSwitcher />
+
         <Routes>
-          {/* Test Route */}
-          <Route path="/test" element={<TestComponent />} />
+          {/* Test Routes */}
+          <Route path="/" element={<TestComponent />} />
+          <Route path="/loaders" element={<LoaderDemo />} />
 
           {/* Public Routes */}
-          {/* <Route path="/login" element={<Login />} /> */}
-          {/* <Route path="/register" element={<Register />} /> */}
+          {/* <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          {/* Protected Routes with Layout */}
-          {/* <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-          </Route> */}
-          <Route path="/" element={<Home />} />
+            {/* Protected Routes with Layout */}
+          {/* <Route path="/" element={<Layout />}> */}
+          {/* <Route index element={<Home />} /> */}
+          {/* </Route>  */}
         </Routes>
 
         {/* Global Toast Notifications */}
@@ -54,9 +56,10 @@ const App: React.FC = () => {
           draggable
           pauseOnHover
           className="mt-16"
+          theme="colored"
         />
       </div>
-    </Router>
+    </ThemeProvider>
   );
 };
 
