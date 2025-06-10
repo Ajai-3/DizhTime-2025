@@ -1,1 +1,0 @@
-// Register Customer Auth Page

@@ -1,1 +1,0 @@
-// Logout Auth Customer Component

@@ -1,1 +1,0 @@
-// Main Layout Customer Component

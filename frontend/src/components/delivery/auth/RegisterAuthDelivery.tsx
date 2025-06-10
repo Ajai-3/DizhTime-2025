@@ -1,1 +1,0 @@
-// Register Auth Delivery Component

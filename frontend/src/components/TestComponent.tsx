@@ -4,18 +4,35 @@
 // This component displays DizhTime name for project testing
 //=================================================================================================================
 
-import React from 'react';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const TestComponent: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/loaders");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-400 via-red-500 to-pink-500 flex items-center justify-center">
+    <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
       <div className="text-center">
-        <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 drop-shadow-lg">
-          DizhTime
+        <h1 className="text-6xl md:text-9xl font-bold text-gray-900 dark:text-white mb-4 drop-shadow-lg">
+          <span className="text-main-color">Dizh</span>
+          <span>Time</span>
         </h1>
-        <p className="text-xl md:text-2xl text-white/90 mb-8">
-          🍕 Food Delivery Platform
+        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8">
+          🍽️ Food Delivery Platform
         </p>
+        {/* Loader Demo Button */}
+        <div className="mb-8">
+          <button
+            onClick={handleNavigate}
+            className="bg-main-color hover:bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg"
+          >
+            🎨 View Beautiful Loaders
+          </button>
+        </div>
         <div className="bg-white/20 backdrop-blur-sm rounded-lg p-6 max-w-md mx-auto">
           <h2 className="text-2xl font-semibold text-white mb-4">
             🚀 Project Status
@@ -40,11 +57,9 @@ const TestComponent: React.FC = () => {
           </div>
         </div>
         <div className="mt-8 text-white/80">
-          <p className="text-sm">
-            Built with ❤️ by DizhTime Team
-          </p>
+          <p className="text-sm">Built with ❤️ by DizhTime Team</p>
           <p className="text-xs mt-2">
-            Lead: Ajai | Email: dizhtime@gmail.com
+            Lead: Ajai | Email: ajaipjayan@gmail.com
           </p>
         </div>
       </div>
