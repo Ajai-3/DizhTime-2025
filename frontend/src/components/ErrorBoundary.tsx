@@ -4,7 +4,7 @@
 // This component catches JavaScript errors anywhere in the child component tree
 //=================================================================================================================
 
-import React, { Component } from 'react';
+import React from 'react';
 import type { ErrorInfo, ReactNode } from 'react';
 
 interface Props {
@@ -17,7 +17,7 @@ interface State {
   errorInfo?: ErrorInfo;
 }
 
-class ErrorBoundary extends Component<Props, State> {
+class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
