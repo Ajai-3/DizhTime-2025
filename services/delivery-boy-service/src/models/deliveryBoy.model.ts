@@ -1,4 +1,8 @@
-// Delivery boy model - delivery boy schema and database operations
+//=================================================================================================================
+// DATABASE CONFIGURATION FOR THE DELIVERY BOY MODEL
+//=================================================================================================================
+// This file contains database connection settings for delivery boy schema and database operations
+//=================================================================================================================
 import mongoose from 'mongoose';
 
 const deliveryBoySchema = new mongoose.Schema({
