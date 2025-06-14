@@ -11,6 +11,11 @@ const deliveryBoySchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    orderId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order',
+        required: true
+    },
     name: {
         type: String,
         required: true
@@ -25,14 +30,27 @@ const deliveryBoySchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['available', 'busy', 'offline'],
+        enum: ['available', 'busy', 'offline', 'assigned', 'picked', 'on-the-way', 'delivered', 'cancelled'],
         default: 'available'
+    },
+    remarks: String, 
+    pickupTime: Date,
+    deliveredTime: Date,
+    liveLocation: {
+        type: {
+            type: String,
+            enum: ['Point'],
+            default: 'Point'
+        },
+        coordinates: {
+            type: [Number], 
+            default: [0, 0]
+        }
     }
-    }, {
+}, {
     timestamps: true
-
-})
+});
 
 export const DeliveryBoy = mongoose.model('DeliveryBoy', deliveryBoySchema);
 
-// deliveryBoyId, name, contact, assignedArea, status
+
