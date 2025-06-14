@@ -6,7 +6,7 @@
 
 import { Request, Response } from 'express';
 import { DeliveryBoy } from '../models/deliveryBoy.model';
-import { HttpStatusCode, ResponseHandler } from '@dizhtime/common';
+import { HttpStatusCode, ResponseHandler } from '../utils/httpStatus';
 import { z } from 'zod'; 
 
 // Define validation schema
