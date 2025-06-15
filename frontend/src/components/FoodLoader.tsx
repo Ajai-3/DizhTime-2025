@@ -37,7 +37,7 @@ const FoodLoader: React.FC<FoodLoaderProps> = ({
   }, [duration, showProgress]);
 
   return (
-    <div className="fixed inset-0 bg-gray-900/95 dark:bg-black/95 backdrop-blur-xl flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl flex items-center justify-center z-50">
       <div className="text-center p-8 max-w-lg mx-auto">
         {/* DizhTime Logo with Animation */}
         <div className="mb-12">
