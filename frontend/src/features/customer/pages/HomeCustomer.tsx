@@ -1,9 +1,12 @@
 // Home Customer Page
 import React from 'react'
+import Navbar from '../components/navbar/Navbar'
 
 const HomeCustomer:React.FC = () => {
   return (
-    <div>HomeCustomer</div>
+    <div>
+        <Navbar />
+    </div>
   )
 }
 

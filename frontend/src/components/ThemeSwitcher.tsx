@@ -15,7 +15,7 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="fixed top-4 right-4 z-50 p-3 transition-all duration-300 hover:scale-110"
+      className="z-50 p-3 transition-all duration-300"
     >
       {isDark ? <BedtimeIcon /> : <BrightnessMediumIcon />}
     </button>
