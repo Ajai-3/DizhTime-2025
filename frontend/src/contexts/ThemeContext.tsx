@@ -26,18 +26,18 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    // Get theme from localStorage
-    const savedTheme = localStorage.getItem("dizhtime-theme");
-    if (savedTheme) {
-      setIsDark(savedTheme === "dark");
+  // Initialize theme from localStorage immediately to prevent flash
+  const [isDark, setIsDark] = useState(() => {
+    try {
+      const savedTheme = localStorage.getItem("dizhtime-theme");
+      return savedTheme ? savedTheme === "dark" : true;
+    } catch {
+      return true; // Default to dark if localStorage fails
     }
-  }, []);
+  });
 
+  // Apply theme immediately on mount and when changed
   useEffect(() => {
-    // Apply theme to document
     const root = document.documentElement;
 
     if (isDark) {
@@ -47,8 +47,22 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     }
 
     // Save to localStorage
-    localStorage.setItem("dizhtime-theme", isDark ? "dark" : "light");
+    try {
+      localStorage.setItem("dizhtime-theme", isDark ? "dark" : "light");
+    } catch {
+      console.warn("Failed to save theme to localStorage");
+    }
   }, [isDark]);
+
+  // Apply theme immediately on initial load to prevent flash
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark) {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, []);
 
   const toggleTheme = () => {
     setIsDark(!isDark);

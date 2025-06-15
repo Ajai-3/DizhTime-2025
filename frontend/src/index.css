@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --color-primary: #f97316;
-  --color-secondary: #ea580c;
-}
 
 body {
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;

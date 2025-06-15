@@ -200,8 +200,11 @@ const Loader: React.FC<LoaderProps> = ({
       <div className={`text-center ${containerSizes[size]}`}>
         {/* Logo */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-main-color mb-2">DizhTime</h1>
-          <p className="text-green-600 text-sm">🍽️ Food Delivery Platform</p>
+          <h1 className="text-3xl font-bold  mb-2">
+            <span className="text-main-color">Dizh </span>
+            <span className="text-white">Time</span>
+          </h1>
+          <p className="text-gray-500 text-sm">🍽️ Food Delivery Platform</p>
         </div>
 
         {/* Animated Loader */}
@@ -209,7 +212,9 @@ const Loader: React.FC<LoaderProps> = ({
 
         {/* Message */}
         <div className="mb-4">
-          <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">{message}</p>
+          <p className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">
+            {message}
+          </p>
 
           {/* Progress Dots */}
           <div className="flex justify-center space-x-1">
@@ -226,7 +231,7 @@ const Loader: React.FC<LoaderProps> = ({
         {/* Fun Food Facts */}
         <div className="mt-6 text-xs text-gray-400 max-w-xs mx-auto">
           <p className="animate-pulse">
-            💡 Did you know? Fresh food delivery keeps meals hot for 45 minutes!
+            Hot meals. Delivered fast, no games. No cold bites, no delay.{" "}
           </p>
         </div>
       </div>
