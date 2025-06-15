@@ -220,8 +220,6 @@ const LoaderDemo: React.FC = () => {
           </div>
         </div>
 
-       
-
         {/* Back Button */}
         <div className="text-center">
           <Link

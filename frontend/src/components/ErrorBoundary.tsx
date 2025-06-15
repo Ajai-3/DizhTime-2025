@@ -38,7 +38,7 @@ class ErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="fixed inset-0 bg-white dark:bg-gray-900 text-gray-900 dark:text-white flex items-center justify-center p-4">
+        <div className="fixed inset-0 flex items-center justify-center p-4">
           <div className="max-w-4xl w-full h-fit max-h-[90vh]">
             {/* Error Card */}
             <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-2xl border border-gray-300 dark:border-gray-700 overflow-hidden">
