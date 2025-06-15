@@ -196,7 +196,7 @@ const Loader: React.FC<LoaderProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-gray-900/90 dark:bg-black/90 backdrop-blur-lg flex items-center justify-center z-50">
+    <div className="fixed inset-0 backdrop-blur-lg flex items-center justify-center z-50">
       <div className={`text-center ${containerSizes[size]}`}>
         {/* Logo */}
         <div className="mb-6">
