@@ -35,7 +35,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     document.documentElement.classList.toggle("dark", isDark);
     document.body.className = isDark
       ? "bg-gray-900 text-white"
-      : "bg-white text-gray-900";
+      : "bg-slate-200 text-gray-900";
     localStorage.setItem("dizhtime-theme", isDark ? "dark" : "light");
   }, [isDark]);
 
