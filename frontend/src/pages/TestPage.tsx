@@ -14,7 +14,7 @@ const TestPage: React.FC = () => {
   const [showError, setShowError] = useState(false);
   const [showBasicLoader, setShowBasicLoader] = useState(false);
   const [showFoodLoader, setShowFoodLoader] = useState(false);
-  const { isLoading, loaderOptions, showLoader, hideLoader } = useLoader();
+  const { isLoading, loaderOptions, showLoader } = useLoader();
 
   // Function to trigger an error for testing error boundary
   const triggerError = () => {

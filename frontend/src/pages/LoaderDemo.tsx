@@ -220,74 +220,7 @@ const LoaderDemo: React.FC = () => {
           </div>
         </div>
 
-        {/* Features */}
-        <div
-          className={`rounded-xl shadow-lg p-8 mb-8 ${
-            isDark ? "bg-gray-800 border border-gray-700" : "bg-white"
-          }`}
-        >
-          <h2
-            className={`text-2xl font-bold mb-6 text-center ${
-              isDark ? "text-white" : "text-gray-800"
-            }`}
-          >
-            ✨ Loader Features
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-3xl mb-2">🎨</div>
-              <h4
-                className={`font-semibold ${isDark ? "text-white" : "text-gray-800"}`}
-              >
-                Beautiful Design
-              </h4>
-              <p
-                className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}
-              >
-                Main-color theme with food elements
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl mb-2">📱</div>
-              <h4
-                className={`font-semibold ${isDark ? "text-white" : "text-gray-800"}`}
-              >
-                Responsive
-              </h4>
-              <p
-                className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}
-              >
-                Works on all screen sizes
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl mb-2">⚡</div>
-              <h4
-                className={`font-semibold ${isDark ? "text-white" : "text-gray-800"}`}
-              >
-                Smooth Animation
-              </h4>
-              <p
-                className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}
-              >
-                60fps CSS animations
-              </p>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl mb-2">🔧</div>
-              <h4
-                className={`font-semibold ${isDark ? "text-white" : "text-gray-800"}`}
-              >
-                Customizable
-              </h4>
-              <p
-                className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}
-              >
-                Multiple variants & sizes
-              </p>
-            </div>
-          </div>
-        </div>
+       
 
         {/* Back Button */}
         <div className="text-center">
