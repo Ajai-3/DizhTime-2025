@@ -1,10 +1,22 @@
 import React from 'react'
 
-const NavAuthButtons:React.FC = () => {
+interface props {
+  setAuthScreen: (screen: string) => void;
+  toggleAuthDrawer: () => void;
+}
+
+
+const NavAuthButtons:React.FC<props> = ({ toggleAuthDrawer, setAuthScreen }) => {
   return (
-    <div className='flex gap-4 font-medium'>
-        <button className='px-3 py-2 '>Login</button>
-        <button className='bg-main-color px-3 py-2 rounded-md hover:bg-main-color/90'>Sign up</button>
+    <div className='flex gap-2 sm:gap-4 font-medium'>
+        <button onClick={() => {
+          toggleAuthDrawer()
+          setAuthScreen("Login")
+        }} className='px-3 py-2 '>Login</button>
+        <button onClick={() => {
+          toggleAuthDrawer()
+          setAuthScreen("Sign up")
+        }} className='bg-main-color px-3 py-2 rounded-md hover:bg-main-color/90'>Sign up</button>
     </div>
   )
 }
