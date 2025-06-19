@@ -26,27 +26,16 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("dizhtime-theme");
+    return saved ? saved === "dark" : true;
+  });
 
   useEffect(() => {
-    // Get theme from localStorage
-    const savedTheme = localStorage.getItem("dizhtime-theme");
-    if (savedTheme) {
-      setIsDark(savedTheme === "dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    // Apply theme to document
-    const root = document.documentElement;
-
-    if (isDark) {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-
-    // Save to localStorage
+    document.documentElement.classList.toggle("dark", isDark);
+    document.body.className = isDark
+      ? "bg-gray-900 text-white"
+      : "bg-slate-200 text-gray-900";
     localStorage.setItem("dizhtime-theme", isDark ? "dark" : "light");
   }, [isDark]);
 
@@ -56,7 +45,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
 
   return (
     <ThemeContext.Provider value={{ isDark, toggleTheme }}>
-      <div className={isDark ? "dark" : ""}>{children}</div>
+      {children}
     </ThemeContext.Provider>
   );
 };

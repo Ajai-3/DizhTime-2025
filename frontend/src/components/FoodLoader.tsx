@@ -18,15 +18,6 @@ const FoodLoader: React.FC<FoodLoaderProps> = ({
   duration = 3,
 }) => {
   const [progress, setProgress] = useState(0);
-  const [currentStep, setCurrentStep] = useState(0);
-
-  const steps = [
-    { icon: "🛒", text: "Taking your order", color: "text-blue-500" },
-    { icon: "👨‍🍳", text: "Chef is cooking", color: "text-green-500" },
-    { icon: "📦", text: "Packing your food", color: "text-yellow-500" },
-    { icon: "🚚", text: "Out for delivery", color: "text-main-color" },
-    { icon: "🎉", text: "Almost there!", color: "text-purple-500" },
-  ];
 
   useEffect(() => {
     if (!showProgress) return;
@@ -45,70 +36,97 @@ const FoodLoader: React.FC<FoodLoaderProps> = ({
     return () => clearInterval(interval);
   }, [duration, showProgress]);
 
-  useEffect(() => {
-    const stepInterval = setInterval(
-      () => {
-        setCurrentStep((prev) => (prev + 1) % steps.length);
-      },
-      (duration * 1000) / steps.length
-    );
-
-    return () => clearInterval(stepInterval);
-  }, [duration, steps.length]);
-
   return (
-    <div className="fixed inset-0 bg-gray-900/90 dark:bg-black/90 backdrop-blur-lg flex items-center justify-center z-50">
-      <div className="text-center p-8 max-w-md mx-auto">
-        {/* DizhTime Logo */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-main-color to-green-600 bg-clip-text text-transparent mb-2">
-            DizhTime
-          </h1>
-          <p className="text-green-600 text-sm font-medium">
-            🍽️ Delicious Food, Fast Delivery
+    <div className="fixed inset-0 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl flex items-center justify-center z-50">
+      <div className="text-center p-8 max-w-lg mx-auto">
+        {/* DizhTime Logo with Animation */}
+        <div className="mb-12">
+          <div className="relative">
+            <h1 className="text-5xl font-bold mb-3">
+              <span className="text-main-color">Dizh</span>
+              <span className="text-white">Time</span>
+            </h1>
+          </div>
+          <p className="text-green-400 text-lg font-medium tracking-wide">
+            🍽️ Premium Food Delivery Experience
           </p>
         </div>
 
-        {/* Main Animation Container */}
-        <div className="relative mb-8">
-          {/* Delivery Truck Animation */}
-          <div className="relative h-24 mb-4">
-            {/* Road */}
-            <div className="absolute bottom-0 w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+        {/* Epic Animation Container */}
+        <div className="relative mb-12">
+          {/* 3D Delivery Animation */}
+          <div className="relative h-32 mb-6">
+            {/* Glowing Road */}
+            <div className="absolute bottom-0 w-full h-3 bg-gradient-to-r from-gray-700 to-gray-600 rounded-full overflow-hidden shadow-lg">
               <div
-                className="h-full bg-gradient-to-r from-green-400 to-main-color rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
+                className="h-full bg-gradient-to-r from-main-color via-green-400 to-green-500 rounded-full transition-all duration-100 ease-out shadow-lg"
+                style={{
+                  width: `${progress}%`,
+                  boxShadow: "0 0 20px rgba(149, 188, 29, 0.6)",
+                }}
               ></div>
+              {/* Road shine effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
             </div>
 
-            {/* Animated Truck */}
+            {/* Progress Percentage - Right Side Under Progress Bar */}
+            <div className="absolute -bottom-6 right-0">
+              <span className="text-lg font-bold text-main-color filter drop-shadow-lg">
+                {Math.round(progress)}%
+              </span>
+            </div>
+
+            {/* Epic 3D Truck */}
             <div
-              className="absolute bottom-2 transition-all duration-1000 ease-in-out"
-              style={{ left: `${Math.min(progress, 85)}%` }}
+              className="absolute bottom-3 transition-all duration-100 ease-out transform"
+              style={{
+                left: `${progress * 0.85}%`,
+                transform: `translateX(-50%)`,
+              }}
             >
               <div className="relative">
-                {/* Truck Body */}
-                <div className="w-12 h-8 bg-main-color rounded-lg relative animate-bounce">
-                  {/* Truck Details */}
-                  <div className="absolute top-1 left-1 w-2 h-2 bg-green-300 rounded"></div>
-                  <div className="absolute bottom-1 left-1 w-1 h-1 bg-gray-800 rounded-full"></div>
-                  <div className="absolute bottom-1 right-1 w-1 h-1 bg-gray-800 rounded-full"></div>
+                {/* Main Truck Body with 3D effect */}
+                <div className="w-16 h-10 bg-gradient-to-br from-main-color to-green-600 rounded-xl relative shadow-2xl transform hover:scale-105 transition-transform">
+                  {/* Truck cabin */}
+                  <div className="absolute top-0 left-0 w-6 h-6 bg-gradient-to-br from-green-400 to-green-500 rounded-tl-xl rounded-br-lg"></div>
+                  {/* Windshield */}
+                  <div className="absolute top-1 left-1 w-4 h-3 bg-blue-200 rounded opacity-80"></div>
+                  {/* Wheels with rotation */}
+                  <div className="absolute bottom-0 left-1 w-2 h-2 bg-gray-800 rounded-full animate-spin"></div>
+                  <div className="absolute bottom-0 right-1 w-2 h-2 bg-gray-800 rounded-full animate-spin"></div>
 
-                  {/* Food Box */}
-                  <div className="absolute -top-2 -right-1 w-3 h-3 bg-red-500 rounded-sm animate-pulse">
-                    <div className="w-full h-full bg-gradient-to-br from-red-400 to-red-600 rounded-sm"></div>
+                  {/* Premium Food Box */}
+                  <div className="absolute -top-3 -right-2 w-4 h-4 bg-gradient-to-br from-red-400 to-red-600 rounded-lg animate-pulse shadow-lg">
+                    <div className="absolute inset-0.5 bg-gradient-to-br from-red-300 to-red-500 rounded"></div>
+                    <div className="absolute top-1 left-1 w-1 h-1 bg-yellow-300 rounded-full"></div>
+                  </div>
+
+                  {/* Exhaust smoke */}
+                  <div className="absolute -left-2 top-2">
+                    {[...Array(2)].map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-1 h-1 bg-gray-400 rounded-full animate-ping opacity-60"
+                        style={{
+                          left: `${-i * 4}px`,
+                          animationDelay: `${i * 0.3}s`,
+                          animationDuration: "1s",
+                        }}
+                      ></div>
+                    ))}
                   </div>
                 </div>
 
-                {/* Speed Lines */}
-                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-8">
-                  {[...Array(3)].map((_, i) => (
+                {/* Epic Speed Lines */}
+                <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-12">
+                  {[...Array(4)].map((_, i) => (
                     <div
                       key={i}
-                      className="w-2 h-0.5 bg-green-300 rounded-full mb-1 animate-pulse"
+                      className="w-3 h-0.5 bg-gradient-to-r from-main-color to-transparent rounded-full mb-1 animate-pulse"
                       style={{
-                        animationDelay: `${i * 0.2}s`,
-                        opacity: 0.7 - i * 0.2,
+                        animationDelay: `${i * 0.15}s`,
+                        opacity: 0.8 - i * 0.15,
+                        transform: `translateX(${-i * 2}px)`,
                       }}
                     ></div>
                   ))}
@@ -136,93 +154,19 @@ const FoodLoader: React.FC<FoodLoaderProps> = ({
           </div>
         </div>
 
-        {/* Current Step Indicator */}
-        <div className="mb-6">
-          <div
-            className={`text-4xl mb-2 ${steps[currentStep].color} animate-pulse`}
-          >
-            {steps[currentStep].icon}
-          </div>
-          <p className="text-gray-700 font-medium text-lg">
-            {steps[currentStep].text}
-          </p>
-        </div>
-
-        {/* Progress Bar */}
-        {showProgress && (
-          <div className="mb-6">
-            <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-green-400 via-main-color to-green-600 rounded-full transition-all duration-300 ease-out relative"
-                style={{ width: `${progress}%` }}
-              >
-                {/* Shimmer Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
-              </div>
-            </div>
-            <p className="text-sm text-gray-500 mt-2">
-              {Math.round(progress)}% Complete
-            </p>
-          </div>
-        )}
-
         {/* Custom Message */}
         <div className="mb-6">
-          <p className="text-gray-600 font-medium">{message}</p>
-
-          {/* Loading Dots */}
-          <div className="flex justify-center space-x-1 mt-2">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="w-2 h-2 bg-main-color rounded-full animate-bounce"
-                style={{ animationDelay: `${i * 0.3}s` }}
-              ></div>
-            ))}
-          </div>
+          <p className="text-gray-300 font-medium text-lg">{message}</p>
         </div>
 
-        {/* Fun Facts Carousel */}
-        <div className="bg-white/50 backdrop-blur-sm rounded-lg p-4 border border-green-200">
-          <div className="text-xs text-gray-600">
-            <p className="font-medium text-main-color mb-1">💡 Fun Fact:</p>
-            <p className="animate-pulse">
-              {currentStep === 0 &&
-                "The first online food order was placed in 1994!"}
-              {currentStep === 1 &&
-                "Professional chefs can prepare 200+ meals per hour!"}
-              {currentStep === 2 &&
-                "Proper food packaging keeps meals hot for 45 minutes!"}
-              {currentStep === 3 &&
-                "Average delivery time has improved by 40% in recent years!"}
-              {currentStep === 4 && "You're about to enjoy an amazing meal! 🎉"}
-            </p>
-          </div>
-        </div>
-
-        {/* Decorative Elements */}
-        <div className="absolute top-4 left-4 text-green-200 text-6xl opacity-20 animate-spin-slow">
+        {/* Decorative Food Elements */}
+        <div className="absolute top-4 left-4 text-green-200 text-6xl opacity-20 animate-bounce">
           🍽️
         </div>
         <div className="absolute bottom-4 right-4 text-green-200 text-4xl opacity-20 animate-bounce">
           🍔
         </div>
       </div>
-
-      {/* Custom CSS for slow spin */}
-      <style>{`
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-        .animate-spin-slow {
-          animation: spin-slow 8s linear infinite;
-        }
-      `}</style>
     </div>
   );
 };
