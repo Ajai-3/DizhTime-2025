@@ -1,0 +1,84 @@
+graph TD
+    %% Clients
+    subgraph Client_Layer
+        CA[Customer App]
+        DA[Delivery App]
+        RD[Restaurant Dashboard]
+        AP[Admin Portal]
+    end
+
+    %% Infrastructure
+    Gateway[Gateway Service (Kong/Go)]
+    Kafka{Apache Kafka Event Bus}
+
+    %% Service Layer (10 Services)
+    subgraph Services
+        IAM[Auth Service (Go)]
+        User[User Service (NestJS)]
+        Rest[Restaurant Service (NestJS)]
+        Search[Search Service (Go)]
+        Order[Order Service (NestJS)]
+        Wallet[Wallet Service (NestJS)]
+        Del[Delivery Service (Go)]
+        Notif[Notification Service (NestJS)]
+        Analytics[Analytics Service (Node/Python)]
+        %% Note: Gateway is counted as one of the 10 in docs, but sits above visually
+    end
+
+    %% Data Layer
+    subgraph Data_Layer
+        DB_IAM[(Postgres Auth)]
+        DB_User[(Postgres User)]
+        DB_Rest[(MongoDB Menu)]
+        DB_Search[(Elasticsearch)]
+        DB_Order[(Postgres Order)]
+        DB_Wallet[(Postgres Wallet)]
+        DB_Del[(Postgres Delivery)]
+        Redis_Del[(Redis Geo)]
+        DB_Analytics[(ClickHouse)]
+    end
+
+    %% Client -> Gateway
+    CA --> Gateway
+    DA --> Gateway
+    RD --> Gateway
+    AP --> Gateway
+
+    %% Gateway -> Services (REST/HTTP)
+    Gateway --> IAM
+    Gateway --> User
+    Gateway --> Rest
+    Gateway --> Search
+    Gateway --> Order
+    Gateway --> Wallet
+    Gateway --> Del
+    Gateway --> Notif
+    Gateway --> Analytics
+
+    %% Service -> Database Connections
+    IAM --> DB_IAM
+    User --> DB_User
+    Rest --> DB_Rest
+    Search --> DB_Search
+    Order --> DB_Order
+    Wallet --> DB_Wallet
+    Del --> DB_Del
+    Del --> Redis_Del
+    Analytics --> DB_Analytics
+
+    %% Service -> Kafka (Events)
+    Rest -->|Menu Updated| Kafka
+    Order -->|Order Status| Kafka
+    Del -->|Location Update| Kafka
+    Wallet -->|Payment Event| Kafka
+
+    %% Kafka -> Service (Consumers)
+    Kafka -->|Sync Menu| Search
+    Kafka -->|Notify User| Notif
+    Kafka -->|Data Stream| Analytics
+    Kafka -->|Saga Step| Order
+
+    %% Real-time
+    Notif -.->|WebSocket| CA
+    Notif -.->|WebSocket| DA
+    Notif -.->|WebSocket| RD
