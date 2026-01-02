@@ -9,8 +9,6 @@
 *   **Scalable infrastructure**: Kubernetes (K8s) driven with Skaffold for DevX.
 *   **Observability First**: Full visibility into every request and error.
 
----
-
 ## 2. Infrastructure & Communication
 *   **Message Broker**: **Apache Kafka**.
     *   *Topics*: `order.created`, `payment.success`, `driver.location`, `restaurant.menu.update`.

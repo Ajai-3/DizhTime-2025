@@ -8,20 +8,20 @@ graph TD
     end
 
     %% Infrastructure
-    Gateway[Gateway Service (Kong/Go)]
+    Gateway["Gateway Service (Kong/Go)"]
     Kafka{Apache Kafka Event Bus}
 
     %% Service Layer (10 Services)
     subgraph Services
-        IAM[Auth Service (Go)]
-        User[User Service (NestJS)]
-        Rest[Restaurant Service (NestJS)]
-        Search[Search Service (Go)]
-        Order[Order Service (NestJS)]
-        Wallet[Wallet Service (NestJS)]
-        Del[Delivery Service (Go)]
-        Notif[Notification Service (NestJS)]
-        Analytics[Analytics Service (Node/Python)]
+        IAM["Auth Service (Go)"]
+        User["User Service (NestJS)"]
+        Rest["Restaurant Service (NestJS)"]
+        Search["Search Service (Go)"]
+        Order["Order Service (NestJS)"]
+        Wallet["Wallet Service (NestJS)"]
+        Del["Delivery Service (Go)"]
+        Notif["Notification Service (NestJS)"]
+        Analytics["Analytics Service (Node/Python)"]
         %% Note: Gateway is counted as one of the 10 in docs, but sits above visually
     end
 
