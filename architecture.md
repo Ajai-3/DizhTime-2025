@@ -1,371 +1,131 @@
-# DizhTime Architecture Documentation
-
-## 🏗️ System Overview
-
-DizhTime is a comprehensive food delivery platform built using **microservices architecture** with TypeScript and Node.js. The system is designed for scalability, maintainability, and efficient development across multiple teams.
-
-## 📁 Project Structure
-
-```
-DizhTime/
-├── packages/                    # Shared packages
-│   └── dizhtime-common/        # Common utilities and types
-├── services/                   # Microservices
-│   ├── api-gateway/           # API Gateway service
-│   ├── user-service/          # User management service
-│   ├── admin-service/         # Admin management service
-│   ├── restaurant-service/    # Restaurant management service
-│   ├── delivery-boy-service/  # Delivery management service
-│   └── chatbot-service/       # AI chatbot service
-├── frontend/                  # React frontend application
-├── package.json              # Root workspace configuration
-├── architecture.md           # This file
-├── project.rules.md          # Development guidelines
-└── swagger.yaml              # API documentation
-```
-
-## 🎯 Architecture Principles
-
-### 1. **Microservices Architecture**
-
-- Each service handles a specific business domain
-- Services communicate via REST APIs
-- Independent deployment and scaling
-- Technology stack consistency across services
-
-### 2. **Shared Common Package**
-
-- `@dizhtime/common` package for shared utilities
-- Eliminates code duplication
-- Consistent HTTP status codes and response formats
-- Type safety across all services
-
-### 3. **Workspace Management**
-
-- npm workspaces for monorepo management
-- Centralized dependency management
-- Shared development scripts
-
-## 🔧 Technology Stack
-
-### **Backend Services**
-
-- **Runtime**: Node.js
-- **Language**: TypeScript
-- **Framework**: Express.js
-- **Package Manager**: npm with workspaces
-- **Architecture**: Microservices
-
-### **Frontend**
-
-- **Framework**: React with TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
-- **Routing**: React Router
-
-### **Shared Utilities**
-
-- **Package**: @dizhtime/common
-- **HTTP Status**: Standardized enum-based status codes
-- **Response Format**: Consistent API response structure
-
-## 🏢 Service Architecture
-
-### **API Gateway**
-
-- **Purpose**: Central entry point for all client requests
-- **Responsibilities**:
-  - Request routing to appropriate services
-  - Authentication and authorization
-  - Rate limiting and throttling
-  - Request/response logging
-  - Load balancing
-
-### **User Service**
-
-- **Purpose**: User account management and authentication
-- **Responsibilities**:
-  - User registration and login
-  - Profile management
-  - Order history
-  - Payment processing
-  - Chatbot integration
-- **Structure**:
-  ```
-  src/
-  ├── controllers/     # auth, user, order, payment, chatbot
-  ├── models/         # user, order
-  ├── routes/         # API endpoints
-  ├── middleware/     # auth, validation, rate limiting
-  ├── utils/          # error handling, logging, websocket
-  ├── config/         # database, rabbitmq
-  └── tests/          # unit and integration tests
-  ```
-
-### **Admin Service**
-
-- **Purpose**: Administrative operations and analytics
-- **Responsibilities**:
-  - Admin authentication
-  - User management
-  - Restaurant management
-  - Order oversight
-  - Analytics and reporting
-- **Structure**:
-  ```
-  src/
-  ├── controllers/     # auth, user, restaurant, order, analytics
-  ├── models/         # admin, user, restaurant, order
-  ├── routes/         # Admin API endpoints
-  ├── middleware/     # Admin authentication and authorization
-  ├── utils/          # Report generation utilities
-  ├── config/         # Database and external service configs
-  └── tests/          # Admin-specific tests
-  ```
-
-### **Restaurant Service**
-
-- **Purpose**: Restaurant and menu management
-- **Responsibilities**:
-  - Restaurant profile management
-  - Menu item management
-  - Order processing from restaurant side
-  - Restaurant analytics
-- **Structure**:
-  ```
-  src/
-  ├── controllers/     # profile, menu, order
-  ├── models/         # restaurant, menu, order
-  ├── routes/         # Restaurant API endpoints
-  ├── middleware/     # Restaurant authentication
-  ├── utils/          # Restaurant-specific utilities
-  ├── config/         # Database configurations
-  └── tests/          # Restaurant service tests
-  ```
-
-### **Delivery Boy Service**
-
-- **Purpose**: Delivery management and tracking
-- **Responsibilities**:
-  - Delivery boy authentication
-  - Order assignment and tracking
-  - Real-time location updates
-  - Delivery status management
-- **Structure**:
-  ```
-  src/
-  ├── controllers/     # auth, delivery, tracking
-  ├── models/         # deliveryBoy, order
-  ├── routes/         # Delivery API endpoints
-  ├── middleware/     # Delivery boy authentication
-  ├── utils/          # Geolocation utilities
-  ├── config/         # Database and mapping service configs
-  └── tests/          # Delivery service tests
-  ```
-
-### **Chatbot Service**
-
-- **Purpose**: AI-powered customer support and suggestions
-- **Responsibilities**:
-  - Natural language processing
-  - Order suggestions
-  - Customer support automation
-  - Real-time chat functionality
-- **Structure**:
-  ```
-  src/
-  ├── controllers/     # suggestion, chat
-  ├── models/         # chat
-  ├── routes/         # Chatbot API endpoints
-  ├── middleware/     # Chat authentication
-  ├── utils/          # WebSocket utilities
-  ├── config/         # AI service configurations
-  └── tests/          # Chatbot service tests
-  ```
-
-## 📦 Shared Common Package (@dizhtime/common)
-
-### **Purpose**
-
-Centralized utilities and types shared across all microservices to eliminate code duplication and ensure consistency.
-
-### **Structure**
-
-```
-packages/dizhtime-common/
-├── src/
-│   ├── http/
-│   │   └── httpStatus.ts      # HTTP status codes and response handlers
-│   └── index.ts               # Main export file
-├── examples/
-│   └── usage.example.ts       # Usage examples for developers
-├── dist/                      # Compiled JavaScript output
-├── package.json               # Package configuration
-├── tsconfig.json             # TypeScript configuration
-├── README.md                 # Package documentation
-└── SETUP.md                  # Setup and migration guide
-```
-
-### **Key Features**
-
-- **HttpStatusCode Enum**: Standardized status codes (e.g., `HttpStatusCode.OK` instead of `200`)
-- **ResponseHandler Class**: Consistent API response formatting
-- **ApiResponse Interface**: Type-safe response structure
-- **TypeScript Support**: Full type definitions and IntelliSense
-
-### **Usage Example**
-
-```typescript
-import { HttpStatusCode, ResponseHandler } from "@dizhtime/common";
-
-// Success response
-const response = ResponseHandler.success(
-  userData,
-  "User retrieved successfully"
-);
-res.status(response.statusCode).json(response);
-
-// Error response
-const errorResponse = ResponseHandler.error(
-  HttpStatusCode.NOT_FOUND,
-  "User not found"
-);
-res.status(errorResponse.statusCode).json(errorResponse);
-```
-
-## 🔄 Development Workflow
-
-### **File Naming Convention**
-
-- Pattern: `filename.foldername.ts`
-- Examples:
-  - `database.config.ts` (in config folder)
-  - `auth.controllers.ts` (in controllers folder)
-  - `user.models.ts` (in models folder)
-
-### **File Headers**
-
-All files must include standardized headers:
-
-```typescript
-//=================================================================================================================
-// [WHAT THIS FILE NAME]
-//=================================================================================================================
-// [Simple description of the file's purpose]
-//=================================================================================================================
-```
-
-### **Branch Naming Convention**
-
-- **Feature**: `feature/service-name/feature-description`
-- **Bug Fix**: `bugfix/service-name/bug-description`
-- **Hotfix**: `hotfix/service-name/issue-description`
-- **Release**: `release/version-number`
-
-Examples:
-
-- `feature/user-service/add-payment-integration`
-- `bugfix/restaurant-service/menu-validation-error`
-
-### **Commit Message Standards**
-
-```
-type(scope): brief description
-
-Detailed explanation of changes (if needed)
-
-Examples:
-- feat(user-service): add payment integration with Stripe
-- fix(restaurant-service): resolve menu validation error
-- docs(common): update API response documentation
-- refactor(delivery-service): optimize geolocation tracking
-```
-
-### **API Documentation Requirements**
-
-- All controllers must include comprehensive API documentation
-- Include request/response examples
-- Document error scenarios and status codes
-- Use standardized response format from @dizhtime/common
-
-## 🚀 Deployment Architecture
-
-### **Containerization**
-
-- Each service runs in its own Docker container
-- Docker Compose for local development
-- Kubernetes for production deployment
-
-### **Environment Management**
-
-- **Development**: Local Docker containers
-- **Staging**: Cloud-based testing environment
-- **Production**: Scalable cloud infrastructure
-
-### **Service Communication**
-
-- **Internal**: Service-to-service REST API calls
-- **External**: API Gateway as single entry point
-- **Real-time**: WebSocket connections for chat and tracking
-
-## 📊 Monitoring and Logging
-
-### **Logging Strategy**
-
-- Centralized logging using shared logger utility
-- Structured JSON logs for better parsing
-- Service-specific log levels and categories
-
-### **Health Checks**
-
-- Individual service health endpoints
-- API Gateway health aggregation
-- Database connection monitoring
-
-## 🔐 Security Architecture
-
-### **Authentication & Authorization**
-
-- JWT-based authentication
-- Role-based access control (RBAC)
-- Service-to-service authentication
-
-### **Data Protection**
-
-- Input validation and sanitization
-- Rate limiting and throttling
-- HTTPS/TLS encryption
-
-## 📈 Scalability Considerations
-
-### **Horizontal Scaling**
-
-- Stateless service design
-- Load balancing across service instances
-- Database connection pooling
-
-### **Performance Optimization**
-
-- Caching strategies
-- Database indexing
-- API response optimization
-
-## 👥 Team Structure
-
-- **Lead**: Ajai
-- **Email**: null
-- **Development**: Microservice-focused teams
-- **Shared Utilities**: Common package maintenance team
-
-## 📚 Documentation Links
-
-- **Project Rules**: [project.rules.md](./project.rules.md)
-- **API Documentation**: [swagger.yaml](./swagger.yaml)
-- **Common Package Setup**: [packages/dizhtime-common/SETUP.md](./packages/dizhtime-common/SETUP.md)
-- **Common Package Usage**: [packages/dizhtime-common/README.md](./packages/dizhtime-common/README.md)
+# DizhTime - Enterprise Microservices Architecture Design
+
+## 1. System Overview
+**DizhTime** is designed as a high-throughput, event-driven food delivery platform. It leverages **CQRS (Command Query Responsibility Segregation)** to separate read and write loads, ensuring high performance for users while maintaining data consistency.
+
+**Core Principles:**
+*   **Event-Driven**: Kafka as the central nervous system.
+*   **Polyglot**: Go for high-concurrency utils; Node.js/NestJS for complex domain logic.
+*   **Scalable infrastructure**: Kubernetes (K8s) driven with Skaffold for DevX.
+*   **Observability First**: Full visibility into every request and error.
 
 ---
 
-**Last Updated**: 1 June 2025
-**Version**: 1.0.0
-**Maintained by**: DizhTime Development Team
+## 2. Infrastructure & Communication
+*   **Message Broker**: **Apache Kafka**.
+    *   *Topics*: `order.created`, `payment.success`, `driver.location`, `restaurant.menu.update`.
+*   **Gateway**: **Kong** or Custom **Go Gateway**.
+    *   Handles Auth termination, Rate Limiting, Request routing to downstream services.
+*   **Orchestration**: **Kubernetes (K8s)**.
+    *   Autoscaling (HPA) based on CPU/Memory and Kafka Lag.
+*   **Service Discovery**: Native K8s / Consul.
+
+---
+
+## 3. Observability & Monitoring Stack (The "Centralized Logging" System)
+To master the chaos of microservices, we implement the **PLGT Stack** (Prometheus, Loki, Grafana, Tempo).
+
+*   **Centralized Logging**: **Grafana Loki**.
+    *   **Agent**: **Promtail** (sidecar/daemonset) scrapes logs from every container's stdout/stderr.
+    *   **Storage**: MinIO/S3 (for long-term log retention).
+    *   **Viewer**: **Grafana**. You can query logs like `dizh_service="order-service" |= "error"`.
+*   **Metrics**: **Prometheus**.
+    *   Scrapes `/metrics` endpoints from all Go/Node services.
+    *   Alerts on High Error Rates, Latency > 1s, etc.
+*   **Distributed Tracing**: **Grafana Tempo**.
+    *   Follows a request ID from Gateway -> Order Service -> Kafka -> Delivery Service.
+*   **Visualization**: **Grafana Dashboards**.
+    *   Unified view of Logs, Metrics, and Traces.
+
+---
+
+## 4. Microservices Breakdown
+
+### A. Core Domain Services (Command Side - Write)
+These services handle state changes.
+
+1.  **Identity & Access Management (IAM) Service** [Go]
+    *   **Responsibility**: Auth, RBAC (Role Based Access Control).
+    *   **Tech**: Go, Keto (for ACL), JWT.
+    *   **Data**: Postgres.
+
+2.  **Order Processing Service** [NestJS]
+    *   **Responsibility**: Order Lifecycle, State Machine (Saga Pattern for distributed transactions).
+    *   **Pattern**: **CQRS Command Handler**.
+    *   **Data**: Postgres (Transactional).
+    *   **Events**: Publishes `OrderPlacedEvent`.
+
+3.  **Restaurant Management Service** [NestJS]
+    *   **Responsibility**: Menu updates, On/Off status, Price changes.
+    *   **Data**: MongoDB (Document store for flexible Menu schemas).
+    *   **Events**: Publishes `MenuUpdatedEvent` (Consumed by Search Service).
+
+4.  **Delivery Dispatch Service** [Go]
+    *   **Responsibility**: Application logic for Driver Matching (Geo-spatial queries).
+    *   **Tech**: Go + K8s / Uber H3 Geo Index.
+    *   **Data**: Redis (Geo), Postgres.
+
+5.  **Wallet & Payment Service** [Node.js]
+    *   **Responsibility**: Wallets (Credits/Debits), Payment Gateway Integration, Refunds.
+    *   **Critical**: Ledger implementation (Double-entry consistency).
+    *   **Data**: Postgres (Strict ACID compliance).
+
+### B. Query & Specialized Services (Read / Async)
+
+6.  **Search & Discovery Service** [Go/Java/Node]
+    *   **Responsibility**: Super fast search for "Pizza", "Italian", "DizhTime Special".
+    *   **Pattern**: **CQRS Query Handler**. Consumes `MenuUpdatedEvent`, `RestaurantUpdatedEvent`.
+    *   **Data**: **Elasticsearch** / OpenSearch.
+    *   **API**: GraphQL for flexible data retrieval by Frontend.
+
+7.  **Notification Service** [Node.js]
+    *   **Responsibility**: Push, SMS, Email, In-App.
+    *   **Tech**: Socket.io / Firebase (FCM).
+    *   **Source**: Consumes generic `NotificationEvent` from Kafka.
+
+8.  **Analytics Service**
+    *   **Source**: Kafka Streams processing.
+    *   **Data**: ClickHouse / Snowflake.
+
+---
+
+## 5. The CQRS Data Flow
+*Example: User searches for a restaurant.*
+1.  **Write Path**: Restaurant updates menu in **Restaurant Service** (Mongo).
+2.  **Event**: Restaurant Service publishes `RestaurantUpdated` to **Kafka**.
+3.  **Sync**: **Search Service** consumes event, validates/formats, and indexes into **Elasticsearch**.
+4.  **Read Path**: User App queries **Search Service** directly (hitting Elastic) for sub-millisecond results.
+    *   *Benefit*: Search load never impacts the main Transactional Database.
+
+---
+
+## 6. Wallet Service Design
+**Features**:
+*   `TopUp`: User adds money via Gateway.
+*   `PayOrder`: Deduct balance transactionally.
+*   `Refund`: Traceable refund logic.
+*   `LoyaltyPoints`: Parallel currency logic.
+**Architecture**:
+*   Uses **Optimistic Locking** for concurrent balance updates.
+*   Audit log for every single cent movement.
+
+---
+
+## 7. Frontend Applications (Clients)
+1.  **Customer App** (React Native / Next.js): Optimized for conversion.
+2.  **Delivery Partner App** (React Native): Optimized for Location/GPS & Battery.
+3.  **Restaurant Dashboard** (React Admin): Real-time order management.
+4.  **Super Admin Portal** (React): Platform configuration & monitoring.
+
+---
+
+## 8. Technology Grid
+| Component | Technology | Rationale |
+| :--- | :--- | :--- |
+| **Lang (High Perf)** | Go (Golang) | Dispatcher, Auth, Gateway |
+| **Lang (Logic)** | TypeScript (NestJS) | Order, Restaurant, Wallet |
+| **Event Bus** | Apache Kafka | High throughput, Persistence |
+| **Search Engine** | Elasticsearch | Complex text queries, Geo-queries |
+| **Cache** | Redis Cluster | Session, Cart, Geo-hashing |
+| **Infra** | K8s + Skaffold | Microservices Industry Standard |
+| **Logging/Mon** | **Grafana LGTM** | Unified Logging & Metrics |
